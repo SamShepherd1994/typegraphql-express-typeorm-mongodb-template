@@ -2,14 +2,14 @@
 import * as dotenv from "dotenv";
 // Must be done as early as possible
 dotenv.config();
-//import express from "express";
+import * as express from "express";
 import { createConnection } from "typeorm";
 import { User } from "./entity/User";
-import cors from "cors";
-import chalk from "chalk";
-import http from "http";
-import helmet from "helmet";
-import compression from "compression";
+import * as cors from "cors";
+import * as chalk from "chalk";
+import * as http from "http";
+import * as helmet from "helmet";
+import * as compression from "compression";
 
 // Set some environmental variables
 const SERVER_PORT = process.env.PORT || 3500;
@@ -18,7 +18,7 @@ export const serverUrl =
         ? `http://localhost:${SERVER_PORT}`
         : "";
 
-/* // Create an express server
+// Create an express server
 const app = express();
 
 if (process.env.NODE_ENV === "production") {
@@ -27,10 +27,10 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Add support for CORS
-app.use(cors()); */
+app.use(cors());
 
-/* async function start() {
-    createConnection();
+async function start() {
+    await createConnection();
     const httpServer = http.createServer(app);
     httpServer.listen(SERVER_PORT, () => {
         console.log(
@@ -38,16 +38,16 @@ app.use(cors()); */
         );
     });
     httpServer.setTimeout(30000);
-} */
+}
 
-createConnection()
+start()
     .then(async () => {
         console.log("Inserting a new user into the database...");
         const user = new User();
         user.firstName = "Timber";
         user.lastName = "Saw";
         user.age = 25;
-        await user.save({});
+        //await user.save({});
         console.log("Saved a new user with id: " + user.id);
 
         console.log("Loading users from the database...");
